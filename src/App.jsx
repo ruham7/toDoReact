@@ -3,9 +3,18 @@ import { Fragment } from "react";
 import { useState } from "react";
 import NewTodoForm from "./NewTodoForm";
 import ToDoList from "./ToDoList";
+// import { useEffect } from "react";
 export default function App() {
   // const [newItem, setNewItem] = useState("");
-  const [todos, setNewTodos] = useState([]);
+  const [todos, setNewTodos] = useState(() => {
+    const localValue = localStorage.getItem("ITEMS");
+    if (localValue == null) return [];
+    return JSON.parse(localValue);
+  });
+
+  // useEffect(() => {
+  //   localStorage.setItem("ITEMS", JSON.stringify(todos));
+  // }, [todos]);
 
   function toggleTodo(id, completed) {
     setNewTodos((currentTodos) => {
